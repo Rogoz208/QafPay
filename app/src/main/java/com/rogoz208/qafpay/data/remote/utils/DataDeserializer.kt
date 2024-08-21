@@ -3,31 +3,31 @@ package com.rogoz208.qafpay.data.remote.utils
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.rogoz208.qafpay.data.remote.dto.DataDto
+import com.rogoz208.qafpay.data.remote.dto.auth.AuthDataDto
 import java.lang.reflect.Type
 
-class DataDeserializer : JsonDeserializer<DataDto> {
+class DataDeserializer : JsonDeserializer<AuthDataDto> {
     override fun deserialize(
         json: JsonElement, typeOfT: Type, context: com.google.gson.JsonDeserializationContext
-    ): DataDto {
+    ): AuthDataDto {
         val jsonObject = json.asJsonObject
 
         return when {
             jsonObject.has("server_time") && jsonObject.has("session_id") -> {
-                DataDto.SessionOpenDataDto(
+                AuthDataDto.SessionOpenAuthDataDto(
                     serverTime = jsonObject.get("server_time").asInt,
                     sessionId = jsonObject.get("session_id").asString
                 )
             }
 
             jsonObject.has("user_id") -> {
-                DataDto.SessionTestDataDto(
+                AuthDataDto.SessionTestAuthDataDto(
                     userId = jsonObject.get("user_id").asString
                 )
             }
 
             jsonObject.has("otp") -> {
-                DataDto.OtpSendDataDto(
+                AuthDataDto.OtpSendAuthDataDto(
                     code = jsonObject.get("code").asInt,
                     length = jsonObject.get("length").asInt,
                     otp = jsonObject.get("otp").asString,
@@ -37,7 +37,7 @@ class DataDeserializer : JsonDeserializer<DataDto> {
             }
 
             jsonObject.has("first_auth") -> {
-                DataDto.OtpVerifyDataDto(
+                AuthDataDto.OtpVerifyAuthDataDto(
                     attempts = jsonObject.checkAndGet("attempts")?.asInt,
                     firstAuth = jsonObject.get("first_auth").asBoolean
                 )
