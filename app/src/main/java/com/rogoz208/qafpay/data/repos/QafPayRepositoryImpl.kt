@@ -1,6 +1,7 @@
 package com.rogoz208.qafpay.data.repos
 
 import com.rogoz208.qafpay.data.QafPayApi
+import com.rogoz208.qafpay.data.remote.dto.accounts.AccountsDto
 import com.rogoz208.qafpay.data.remote.dto.countries.GetAllCountriesRequest
 import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
 import com.rogoz208.qafpay.data.remote.dto.auth.OtpSendRequest
@@ -70,5 +71,9 @@ class QafPayRepositoryImpl @Inject constructor(
                 name = name
             )
         )
+    }
+
+    override suspend fun getAccounts(): AccountsDto {
+        return api.getAccounts()
     }
 }

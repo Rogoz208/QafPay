@@ -2,6 +2,7 @@ package com.rogoz208.qafpay.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.rogoz208.qafpay.data.remote.dto.accounts.AccountsDto
 import com.rogoz208.qafpay.data.remote.dto.countries.GetAllCountriesRequest
 import com.rogoz208.qafpay.data.remote.dto.auth.AuthDataDto
 import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
@@ -57,6 +58,9 @@ interface QafPayApi {
     suspend fun updateUserProfile(
         @Body updateUserProfileRequest: UpdateUserProfileRequest
     ): ProfileDto
+
+    @POST("/api/v1/users/accounts/list")
+    suspend fun getAccounts(): AccountsDto
 }
 
 fun QafPayApi(
