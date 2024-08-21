@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.rogoz208.qafpay.domain.model.auth.AuthData
+import com.rogoz208.qafpay.domain.model.Auth
 import com.rogoz208.qafpay.presentation.Screen
 
 @Composable
@@ -50,8 +50,8 @@ fun AuthScreen(
             }
         }
         if (state.isOtpSent) {
-            when (val data = state.auth?.authData) {
-                is AuthData.OtpSendAuthData -> {
+            when (val data = state.auth) {
+                is Auth.OtpSendAuth -> {
                     Toast.makeText(
                         context,
                         "Password: ${data.otp}",

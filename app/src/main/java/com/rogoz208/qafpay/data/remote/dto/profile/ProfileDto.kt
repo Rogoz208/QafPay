@@ -2,8 +2,7 @@ package com.rogoz208.qafpay.data.remote.dto.profile
 
 import com.google.gson.annotations.SerializedName
 import com.rogoz208.qafpay.data.remote.dto.StatusDto
-import com.rogoz208.qafpay.data.remote.dto.toStatus
-import com.rogoz208.qafpay.domain.model.profile.Profile
+import com.rogoz208.qafpay.domain.model.Profile
 
 data class ProfileDto(
     @SerializedName("code")
@@ -21,12 +20,5 @@ data class ProfileDto(
 )
 
 fun ProfileDto.toProfile(): Profile {
-    return Profile(
-        code = code,
-        data = data.toProfileData(),
-        message = message,
-        requestId = requestId,
-        status = status.toStatus(),
-        userMessage = userMessage
-    )
+    return data.toProfileData()
 }

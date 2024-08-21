@@ -1,7 +1,7 @@
 package com.rogoz208.qafpay.data.remote.dto.auth
 
 import com.google.gson.annotations.SerializedName
-import com.rogoz208.qafpay.domain.model.auth.AuthData
+import com.rogoz208.qafpay.domain.model.Auth
 
 sealed class AuthDataDto {
 
@@ -28,8 +28,8 @@ sealed class AuthDataDto {
     ) : AuthDataDto()
 }
 
-fun AuthDataDto.toAuthData(): AuthData = when (this) {
-    is AuthDataDto.OtpSendAuthDataDto -> AuthData.OtpSendAuthData(
+fun AuthDataDto.toAuthData(): Auth = when (this) {
+    is AuthDataDto.OtpSendAuthDataDto -> Auth.OtpSendAuth(
         code = code,
         length = length,
         otp = otp,
@@ -37,17 +37,17 @@ fun AuthDataDto.toAuthData(): AuthData = when (this) {
         type = type
     )
 
-    is AuthDataDto.OtpVerifyAuthDataDto -> AuthData.OtpVerifyAuthData(
+    is AuthDataDto.OtpVerifyAuthDataDto -> Auth.OtpVerifyAuth(
         attempts = attempts,
         firstAuth = firstAuth
     )
 
-    is AuthDataDto.SessionOpenAuthDataDto -> AuthData.SessionOpenAuthData(
+    is AuthDataDto.SessionOpenAuthDataDto -> Auth.SessionOpenAuth(
         serverTime = serverTime,
         sessionId = sessionId
     )
 
-    is AuthDataDto.SessionTestAuthDataDto -> AuthData.SessionTestAuthData(
+    is AuthDataDto.SessionTestAuthDataDto -> Auth.SessionTestAuth(
         userId = userId
     )
 }

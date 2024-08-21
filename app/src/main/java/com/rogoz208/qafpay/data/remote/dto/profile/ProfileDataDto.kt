@@ -1,7 +1,7 @@
 package com.rogoz208.qafpay.data.remote.dto.profile
 
 import com.google.gson.annotations.SerializedName
-import com.rogoz208.qafpay.domain.model.profile.ProfileData
+import com.rogoz208.qafpay.domain.model.Profile
 
 data class ProfileDataDto(
     @SerializedName("blocked") val blocked: Boolean?,
@@ -24,23 +24,23 @@ data class ProfileDataDto(
     @SerializedName("updated_at") val updatedAt: String?
 )
 
-fun ProfileDataDto.toProfileData(): ProfileData {
-    return ProfileData(
+fun ProfileDataDto.toProfileData(): Profile {
+    return Profile(
         blocked = blocked,
-        city = city,
+        city = city ?: "Undefined",
         cityId = cityId,
-        country = country,
+        country = country ?: "Undefined",
         countryId = countryId,
         createdAt = createdAt,
-        email = email,
+        email = email ?: "Undefined",
         geoLat = geoLat,
         geoLng = geoLng,
         geoMaxRadius = geoMaxRadius,
         geoRadius = geoRadius,
         id = id,
-        language = language,
+        language = language ?: "Undefined",
         loggedIn = loggedIn,
-        name = name,
+        name = name ?: "Undefined",
         phone = phone,
         referralUserId = referralUserId,
         updatedAt = updatedAt

@@ -2,8 +2,7 @@ package com.rogoz208.qafpay.domain.use_cases.auth
 
 import com.rogoz208.qafpay.common.Resource
 import com.rogoz208.qafpay.data.remote.dto.auth.toAuth
-import com.rogoz208.qafpay.domain.model.auth.Auth
-import com.rogoz208.qafpay.domain.model.Status
+import com.rogoz208.qafpay.domain.model.Auth
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,10 +16,7 @@ class SessionOpenUseCase(
         try {
             emit(Resource.Loading())
             val auth = repo.sessionOpen().toAuth()
-            when (auth.status) {
-                Status.SUCCESS -> emit(Resource.Success(auth))
-                Status.ERROR -> emit(Resource.Error(auth.userMessage))
-            }
+            emit(Resource.Success(auth))
         } catch (e: retrofit2.HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
         } catch (e: IOException) {
