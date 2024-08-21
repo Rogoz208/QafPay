@@ -8,5 +8,14 @@ sealed class Screen {
     data object AuthScreen : Screen()
 
     @Serializable
-    data object MainBottomNavigationScreen : Screen()
+    data object BottomNavigationScreen : Screen()
+
+    @Serializable
+    data object AccountsScreen : Screen()
+
+    @Serializable
+    data object TransactionsScreen: Screen()
+
+    @Serializable
+    data object ProfileScreen : Screen()
 }

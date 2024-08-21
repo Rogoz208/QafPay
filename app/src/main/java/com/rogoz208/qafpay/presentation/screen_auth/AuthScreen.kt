@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.rogoz208.qafpay.domain.model.Data
+import com.rogoz208.qafpay.domain.model.auth.AuthData
 import com.rogoz208.qafpay.presentation.Screen
 
 @Composable
@@ -43,11 +43,15 @@ fun AuthScreen(
     val context = LocalContext.current
     LaunchedEffect(state.isOtpVerified, state.isOtpSent) {
         if (state.isOtpVerified) {
-            navController.navigate(Screen.MainBottomNavigationScreen)
+            navController.navigate(Screen.BottomNavigationScreen) {
+                popUpTo(Screen.AuthScreen) {
+                    inclusive = true
+                }
+            }
         }
         if (state.isOtpSent) {
-            when (val data = state.auth?.data) {
-                is Data.OtpSendData -> {
+            when (val data = state.auth?.authData) {
+                is AuthData.OtpSendAuthData -> {
                     Toast.makeText(
                         context,
                         "Password: ${data.otp}",
