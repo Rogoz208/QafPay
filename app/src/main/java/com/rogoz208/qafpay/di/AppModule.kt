@@ -4,6 +4,8 @@ import com.rogoz208.qafpay.BuildConfig
 import com.rogoz208.qafpay.data.QafPayApi
 import com.rogoz208.qafpay.data.repos.QafPayRepositoryImpl
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
+import com.rogoz208.qafpay.domain.use_cases.accounts.AccountsUseCases
+import com.rogoz208.qafpay.domain.use_cases.accounts.GetAccountsUseCase
 import com.rogoz208.qafpay.domain.use_cases.auth.AuthUseCases
 import com.rogoz208.qafpay.domain.use_cases.auth.OtpSendUseCase
 import com.rogoz208.qafpay.domain.use_cases.auth.OtpVerifyUseCase
@@ -75,5 +77,11 @@ object AppModule {
             GetLanguagesUseCase(repo),
             UpdateUserProfileUseCase(repo)
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAccountsUseCases(repo: QafPayRepository): AccountsUseCases {
+        return AccountsUseCases(GetAccountsUseCase(repo))
     }
 }

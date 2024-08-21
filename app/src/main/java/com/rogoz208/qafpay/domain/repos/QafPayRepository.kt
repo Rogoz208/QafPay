@@ -1,5 +1,6 @@
 package com.rogoz208.qafpay.domain.repos
 
+import com.rogoz208.qafpay.data.remote.dto.accounts.AccountsDto
 import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
 import com.rogoz208.qafpay.data.remote.dto.cities.CitiesDto
 import com.rogoz208.qafpay.data.remote.dto.countries.CountriesDto
@@ -33,4 +34,6 @@ interface QafPayRepository {
         language: String,
         name: String
     ): ProfileDto
+
+    suspend fun getAccounts(): AccountsDto
 }
