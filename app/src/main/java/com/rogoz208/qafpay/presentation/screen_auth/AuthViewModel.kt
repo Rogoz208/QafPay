@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rogoz208.qafpay.common.Resource
-import com.rogoz208.qafpay.domain.use_cases.AuthUseCases
+import com.rogoz208.qafpay.domain.use_cases.auth.AuthUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

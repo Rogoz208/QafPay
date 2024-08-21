@@ -1,13 +1,15 @@
-package com.rogoz208.qafpay.data.remote.dto
+package com.rogoz208.qafpay.data.remote.dto.auth
 
 import com.google.gson.annotations.SerializedName
-import com.rogoz208.qafpay.domain.model.Auth
+import com.rogoz208.qafpay.data.remote.dto.StatusDto
+import com.rogoz208.qafpay.data.remote.dto.toStatus
+import com.rogoz208.qafpay.domain.model.auth.Auth
 
 data class AuthDto(
     @SerializedName("code")
     val code: Int,
     @SerializedName("data")
-    val dataDto: DataDto,
+    val authDataDto: AuthDataDto,
     @SerializedName("message")
     val message: List<String?>?,
     @SerializedName("request_id")
@@ -21,7 +23,7 @@ data class AuthDto(
 fun AuthDto.toAuth(): Auth {
     return Auth(
         code = code,
-        data = dataDto.toData(),
+        authData = authDataDto.toAuthData(),
         message = message,
         requestId = requestId,
         status = status.toStatus(),

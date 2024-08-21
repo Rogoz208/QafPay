@@ -1,6 +1,6 @@
 package com.rogoz208.qafpay.presentation.screen_auth
 
-import com.rogoz208.qafpay.domain.model.Auth
+import com.rogoz208.qafpay.domain.model.auth.Auth
 
 data class AuthState(
     val isSessionOpened: Boolean = false,

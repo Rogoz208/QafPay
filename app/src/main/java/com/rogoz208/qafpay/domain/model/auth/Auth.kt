@@ -1,8 +1,10 @@
-package com.rogoz208.qafpay.domain.model
+package com.rogoz208.qafpay.domain.model.auth
+
+import com.rogoz208.qafpay.domain.model.Status
 
 data class Auth(
     val code: Int,
-    val data: Data?,
+    val authData: AuthData?,
     val message: List<String?>?,
     val requestId: String,
     val status: Status,

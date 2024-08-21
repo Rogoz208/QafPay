@@ -1,22 +1,22 @@
-package com.rogoz208.qafpay.domain.use_cases
+package com.rogoz208.qafpay.domain.use_cases.auth
 
 import com.rogoz208.qafpay.common.Resource
-import com.rogoz208.qafpay.data.remote.dto.toAuth
-import com.rogoz208.qafpay.domain.model.Auth
+import com.rogoz208.qafpay.data.remote.dto.auth.toAuth
+import com.rogoz208.qafpay.domain.model.auth.Auth
 import com.rogoz208.qafpay.domain.model.Status
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
-class OtpSendUseCase(
+class OtpVerifyUseCase(
     private val repo: QafPayRepository
 ) {
 
-    operator fun invoke(identifier: String): Flow<Resource<Auth>> = flow {
+    operator fun invoke(otp: String): Flow<Resource<Auth>> = flow {
         try {
             emit(Resource.Loading())
-            val auth = repo.otpSend(identifier).toAuth()
+            val auth = repo.otpVerify(otp).toAuth()
             when (auth.status) {
                 Status.SUCCESS -> emit(Resource.Success(auth))
                 Status.ERROR -> emit(Resource.Error(auth.userMessage))
@@ -28,3 +28,4 @@ class OtpSendUseCase(
         }
     }
 }
+
