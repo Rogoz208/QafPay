@@ -21,25 +21,187 @@ class ProfileViewModel @Inject constructor(
 
     init {
         getProfile()
+        getCountries()
+        getLanguages()
     }
 
     private fun getProfile() {
-        profileUseCases.getProfile().onEach { result ->
+        profileUseCases.getProfileUseCase().onEach { result ->
             when (result) {
                 is Resource.Error -> {
-                    _state.value = ProfileState(
-                        errorMessage = result.message ?: "An unexpected error occurred"
+                    _state.value = state.value.copy(
+                        errorMessage = result.message ?: "An unexpected error occurred",
+                        isLoading = false
                     )
                 }
 
                 is Resource.Loading -> {
-                    _state.value = ProfileState(isLoading = true, profile = result.data)
+                    _state.value = state.value.copy(isLoading = true, profile = result.data)
                 }
 
                 is Resource.Success -> {
-                    _state.value = ProfileState(profile = result.data)
+                    getCities(result.data?.countryId)
+                    _state.value = state.value.copy(
+                        profile = result.data,
+                        isLoading = false
+                    )
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    private fun getCountries() {
+        profileUseCases.getAllCountriesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    _state.value = state.value.copy(
+                        errorMessage = result.message ?: "An unexpected error occurred",
+                        isLoading = false
+                    )
+                }
+
+                is Resource.Loading -> {
+                    _state.value = state.value.copy(
+                        isLoading = true,
+                        countries = result.data ?: listOf()
+                    )
+                }
+
+                is Resource.Success -> {
+                    _state.value =
+                        state.value.copy(
+                            countries = result.data ?: listOf(),
+                            isLoading = false
+                        )
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getCities(countryId: String?) {
+        profileUseCases.getCitiesUseCase(countryId).onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    _state.value = state.value.copy(
+                        errorMessage = result.message ?: "An unexpected error occurred",
+                        isLoading = false
+                    )
+                }
+
+                is Resource.Loading -> {
+                    _state.value = state.value.copy(
+                        isLoading = true,
+                        cities = result.data ?: listOf()
+                    )
+                }
+
+                is Resource.Success -> {
+                    _state.value =
+                        state.value.copy(
+                            cities = result.data ?: listOf(),
+                            isLoading = false
+                        )
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getLanguages() {
+        profileUseCases.getLanguagesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    _state.value = state.value.copy(
+                        errorMessage = result.message ?: "An unexpected error occurred",
+                        isLoading = false
+                    )
+                }
+
+                is Resource.Loading -> {
+                    _state.value = state.value.copy(
+                        isLoading = true,
+                        languages = result.data ?: listOf()
+                    )
+                }
+
+                is Resource.Success -> {
+                    _state.value =
+                        state.value.copy(
+                            languages = result.data ?: listOf(),
+                            isLoading = false
+                        )
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun findCountryIdInList(country: String): String? {
+        return state.value.countries.find { countryItem ->
+            countryItem.name == country
+        }?.id
+    }
+
+    fun onSaveChanges() {
+        // TODO: Не работает. Причину написал в телеграме.
+
+//        val profile = state.value.profile
+//        profileUseCases.updateUserProfileUseCase(
+//            cityId = profile?.cityId ?: "",
+//            countryId = profile?.countryId ?: "",
+//            identifier = profile?.email ?: "",
+//            language = profile?.language ?: "",
+//            name = profile?.name ?: ""
+//        ).onEach { result ->
+//            when (result) {
+//                is Resource.Error -> {
+//                    _state.value = state.value.copy(
+//                        errorMessage = result.message ?: "An unexpected error occurred",
+//                        isLoading = false
+//                    )
+//                }
+//
+//                is Resource.Loading -> {
+//                    _state.value = state.value.copy(
+//                        isLoading = true,
+//                        profile = result.data
+//                    )
+//                }
+//
+//                is Resource.Success -> {
+//                    _state.value =
+//                        state.value.copy(
+//                            profile = result.data,
+//                            isLoading = false
+//                        )
+//                }
+//            }
+//        }.launchIn(viewModelScope)
+    }
+
+    fun onNameUpdate(name: String) {
+        val profileCopy = state.value.profile?.copy(name = name)
+        _state.value = state.value.copy(profile = profileCopy, isChanged = true)
+    }
+
+    fun onEmailUpdate(email: String) {
+        val profileCopy = state.value.profile?.copy(email = email)
+        _state.value = state.value.copy(profile = profileCopy, isChanged = true)
+    }
+
+    fun onCountryUpdate(country: String) {
+        val countryId = findCountryIdInList(country)
+        getCities(countryId)
+
+        val profileCopy = state.value.profile?.copy(country = country)
+        _state.value = state.value.copy(profile = profileCopy, isChanged = true)
+    }
+
+    fun onCityUpdate(city: String) {
+        val profileCopy = state.value.profile?.copy(city = city)
+        _state.value = state.value.copy(profile = profileCopy, isChanged = true)
+    }
+
+    fun onLanguageUpdate(language: String) {
+        val profileCopy = state.value.profile?.copy(language = language)
+        _state.value = state.value.copy(profile = profileCopy, isChanged = true)
     }
 }

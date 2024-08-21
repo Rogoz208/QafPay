@@ -8,14 +8,27 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
-class GetProfile(
+class UpdateUserProfileUseCase(
     private val repo: QafPayRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<Profile>> = flow {
+    operator fun invoke(
+        cityId: String,
+        countryId: String,
+        identifier: String,
+        language: String,
+        name: String
+    ): Flow<Resource<Profile>> = flow {
         try {
             emit(Resource.Loading())
-            val profile = repo.getUserProfile().toProfile()
+            val profile =
+                repo.updateUserProfile(
+                    cityId = cityId,
+                    countryId = countryId,
+                    identifier = identifier,
+                    language = language,
+                    name = name
+                ).toProfile()
             emit(Resource.Success(profile))
         } catch (e: retrofit2.HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))

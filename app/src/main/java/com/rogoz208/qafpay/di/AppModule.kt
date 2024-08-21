@@ -10,8 +10,12 @@ import com.rogoz208.qafpay.domain.use_cases.auth.OtpVerifyUseCase
 import com.rogoz208.qafpay.domain.use_cases.auth.SessionCloseUseCase
 import com.rogoz208.qafpay.domain.use_cases.auth.SessionOpenUseCase
 import com.rogoz208.qafpay.domain.use_cases.auth.SessionTestUseCase
-import com.rogoz208.qafpay.domain.use_cases.profile.GetProfile
+import com.rogoz208.qafpay.domain.use_cases.profile.GetAllCountriesUseCase
+import com.rogoz208.qafpay.domain.use_cases.profile.GetCitiesUseCase
+import com.rogoz208.qafpay.domain.use_cases.profile.GetLanguagesUseCase
+import com.rogoz208.qafpay.domain.use_cases.profile.GetProfileUseCase
 import com.rogoz208.qafpay.domain.use_cases.profile.ProfileUseCases
+import com.rogoz208.qafpay.domain.use_cases.profile.UpdateUserProfileUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,6 +68,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideProfileUseCases(repo: QafPayRepository): ProfileUseCases {
-        return ProfileUseCases(GetProfile(repo))
+        return ProfileUseCases(
+            GetProfileUseCase(repo),
+            GetAllCountriesUseCase(repo),
+            GetCitiesUseCase(repo),
+            GetLanguagesUseCase(repo),
+            UpdateUserProfileUseCase(repo)
+        )
     }
 }
