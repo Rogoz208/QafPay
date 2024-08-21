@@ -1,9 +1,10 @@
 package com.rogoz208.qafpay.data.repos
 
 import com.rogoz208.qafpay.data.QafPayApi
-import com.rogoz208.qafpay.data.remote.dto.AuthDto
-import com.rogoz208.qafpay.data.remote.dto.OtpSendRequest
-import com.rogoz208.qafpay.data.remote.dto.OtpVerifyRequest
+import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
+import com.rogoz208.qafpay.data.remote.dto.auth.OtpSendRequest
+import com.rogoz208.qafpay.data.remote.dto.auth.OtpVerifyRequest
+import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
 import javax.inject.Inject
 
@@ -29,5 +30,9 @@ class QafPayRepositoryImpl @Inject constructor(
 
     override suspend fun otpVerify(otp: String): AuthDto {
         return api.otpVerify(OtpVerifyRequest(otp))
+    }
+
+    override suspend fun getUserProfile(): ProfileDto {
+        return api.getUserProfile()
     }
 }

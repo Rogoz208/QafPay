@@ -1,6 +1,7 @@
 package com.rogoz208.qafpay.domain.repos
 
-import com.rogoz208.qafpay.data.remote.dto.AuthDto
+import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
+import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
 
 interface QafPayRepository {
 
@@ -13,4 +14,6 @@ interface QafPayRepository {
     suspend fun otpSend(identifier: String): AuthDto
 
     suspend fun otpVerify(otp: String): AuthDto
+
+    suspend fun getUserProfile(): ProfileDto
 }

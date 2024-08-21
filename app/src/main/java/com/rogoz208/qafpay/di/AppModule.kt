@@ -4,12 +4,14 @@ import com.rogoz208.qafpay.BuildConfig
 import com.rogoz208.qafpay.data.QafPayApi
 import com.rogoz208.qafpay.data.repos.QafPayRepositoryImpl
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
-import com.rogoz208.qafpay.domain.use_cases.AuthUseCases
-import com.rogoz208.qafpay.domain.use_cases.OtpSendUseCase
-import com.rogoz208.qafpay.domain.use_cases.OtpVerifyUseCase
-import com.rogoz208.qafpay.domain.use_cases.SessionCloseUseCase
-import com.rogoz208.qafpay.domain.use_cases.SessionOpenUseCase
-import com.rogoz208.qafpay.domain.use_cases.SessionTestUseCase
+import com.rogoz208.qafpay.domain.use_cases.auth.AuthUseCases
+import com.rogoz208.qafpay.domain.use_cases.auth.OtpSendUseCase
+import com.rogoz208.qafpay.domain.use_cases.auth.OtpVerifyUseCase
+import com.rogoz208.qafpay.domain.use_cases.auth.SessionCloseUseCase
+import com.rogoz208.qafpay.domain.use_cases.auth.SessionOpenUseCase
+import com.rogoz208.qafpay.domain.use_cases.auth.SessionTestUseCase
+import com.rogoz208.qafpay.domain.use_cases.profile.GetProfile
+import com.rogoz208.qafpay.domain.use_cases.profile.ProfileUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,5 +59,11 @@ object AppModule {
             OtpSendUseCase(repo),
             OtpVerifyUseCase(repo)
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideProfileUseCases(repo: QafPayRepository): ProfileUseCases {
+        return ProfileUseCases(GetProfile(repo))
     }
 }

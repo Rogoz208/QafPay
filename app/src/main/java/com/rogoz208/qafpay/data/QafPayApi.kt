@@ -2,11 +2,12 @@ package com.rogoz208.qafpay.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.rogoz208.qafpay.data.remote.dto.AuthDto
-import com.rogoz208.qafpay.data.remote.dto.DataDto
+import com.rogoz208.qafpay.data.remote.dto.auth.AuthDto
+import com.rogoz208.qafpay.data.remote.dto.auth.AuthDataDto
 import com.rogoz208.qafpay.data.remote.utils.DataDeserializer
-import com.rogoz208.qafpay.data.remote.dto.OtpSendRequest
-import com.rogoz208.qafpay.data.remote.dto.OtpVerifyRequest
+import com.rogoz208.qafpay.data.remote.dto.auth.OtpSendRequest
+import com.rogoz208.qafpay.data.remote.dto.auth.OtpVerifyRequest
+import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
 import com.rogoz208.qafpay.data.remote.utils.QafPayCookieJar
 import com.rogoz208.qafpay.data.remote.utils.QafPayHeaderInterceptor
 import okhttp3.OkHttpClient
@@ -31,6 +32,9 @@ interface QafPayApi {
 
     @POST("/api/v1/auth/otp/verify")
     suspend fun otpVerify(@Body request: OtpVerifyRequest): AuthDto
+
+    @POST("/api/v1/users/get")
+    suspend fun getUserProfile(): ProfileDto
 }
 
 fun QafPayApi(
@@ -45,7 +49,7 @@ fun QafPayApi(
         .build()
 
     val modifiedGson: Gson = (gson?.newBuilder() ?: GsonBuilder())
-        .registerTypeAdapter(DataDto::class.java, DataDeserializer())
+        .registerTypeAdapter(AuthDataDto::class.java, DataDeserializer())
         .create()
 
     return Retrofit.Builder()
