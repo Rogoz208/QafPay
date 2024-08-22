@@ -12,6 +12,8 @@ import com.rogoz208.qafpay.data.remote.dto.countries.CountriesDto
 import com.rogoz208.qafpay.data.remote.dto.languages.LanguagesDto
 import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
 import com.rogoz208.qafpay.data.remote.dto.profile.UpdateUserProfileRequest
+import com.rogoz208.qafpay.data.remote.dto.transactions.GetTransactionsRequest
+import com.rogoz208.qafpay.data.remote.dto.transactions.TransactionsDto
 import com.rogoz208.qafpay.domain.repos.QafPayRepository
 import javax.inject.Inject
 
@@ -75,5 +77,9 @@ class QafPayRepositoryImpl @Inject constructor(
 
     override suspend fun getAccounts(): AccountsDto {
         return api.getAccounts()
+    }
+
+    override suspend fun getTransactions(accountId: String): TransactionsDto {
+        return api.getTransactions(GetTransactionsRequest(accountId))
     }
 }

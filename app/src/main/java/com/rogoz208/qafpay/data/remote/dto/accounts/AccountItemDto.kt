@@ -1,6 +1,8 @@
 package com.rogoz208.qafpay.data.remote.dto.accounts
 
 import com.google.gson.annotations.SerializedName
+import com.rogoz208.qafpay.data.remote.dto.CurrencyDto
+import com.rogoz208.qafpay.data.remote.dto.toCurrency
 import com.rogoz208.qafpay.domain.model.Account
 
 data class AccountItemDto(

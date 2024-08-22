@@ -14,6 +14,8 @@ import com.rogoz208.qafpay.data.remote.dto.countries.CountriesDto
 import com.rogoz208.qafpay.data.remote.dto.languages.LanguagesDto
 import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
 import com.rogoz208.qafpay.data.remote.dto.profile.UpdateUserProfileRequest
+import com.rogoz208.qafpay.data.remote.dto.transactions.GetTransactionsRequest
+import com.rogoz208.qafpay.data.remote.dto.transactions.TransactionsDto
 import com.rogoz208.qafpay.data.remote.utils.DataDeserializer
 import com.rogoz208.qafpay.data.remote.utils.QafPayCookieJar
 import com.rogoz208.qafpay.data.remote.utils.QafPayHeaderInterceptor
@@ -61,6 +63,11 @@ interface QafPayApi {
 
     @POST("/api/v1/users/accounts/list")
     suspend fun getAccounts(): AccountsDto
+
+    @POST("/api/v1/users/transactions/list")
+    suspend fun getTransactions(
+        @Body getTransactionsRequest: GetTransactionsRequest
+    ): TransactionsDto
 }
 
 fun QafPayApi(

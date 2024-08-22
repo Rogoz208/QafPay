@@ -6,6 +6,7 @@ import com.rogoz208.qafpay.data.remote.dto.cities.CitiesDto
 import com.rogoz208.qafpay.data.remote.dto.countries.CountriesDto
 import com.rogoz208.qafpay.data.remote.dto.languages.LanguagesDto
 import com.rogoz208.qafpay.data.remote.dto.profile.ProfileDto
+import com.rogoz208.qafpay.data.remote.dto.transactions.TransactionsDto
 
 interface QafPayRepository {
 
@@ -36,4 +37,6 @@ interface QafPayRepository {
     ): ProfileDto
 
     suspend fun getAccounts(): AccountsDto
+
+    suspend fun getTransactions(accountId: String): TransactionsDto
 }

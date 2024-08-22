@@ -18,6 +18,8 @@ import com.rogoz208.qafpay.domain.use_cases.profile.GetLanguagesUseCase
 import com.rogoz208.qafpay.domain.use_cases.profile.GetProfileUseCase
 import com.rogoz208.qafpay.domain.use_cases.profile.ProfileUseCases
 import com.rogoz208.qafpay.domain.use_cases.profile.UpdateUserProfileUseCase
+import com.rogoz208.qafpay.domain.use_cases.transactions.GetTransactionsUseCase
+import com.rogoz208.qafpay.domain.use_cases.transactions.TransactionsUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -83,5 +85,11 @@ object AppModule {
     @Singleton
     fun provideAccountsUseCases(repo: QafPayRepository): AccountsUseCases {
         return AccountsUseCases(GetAccountsUseCase(repo))
+    }
+
+    @Provides
+    @Singleton
+    fun provideTransactionsUseCases(repo: QafPayRepository): TransactionsUseCases {
+        return TransactionsUseCases(GetTransactionsUseCase(repo))
     }
 }

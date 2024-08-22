@@ -23,9 +23,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.rogoz208.qafpay.presentation.Screen
-import com.rogoz208.qafpay.presentation.TransactionsScreen
 import com.rogoz208.qafpay.presentation.screen_accounts.AccountsScreen
 import com.rogoz208.qafpay.presentation.screen_profile.ProfileScreen
+import com.rogoz208.qafpay.presentation.screen_transactions.TransactionsScreen
 
 data class BottomNavigationItem(
     val title: String,
@@ -94,7 +94,7 @@ fun MainBottomNavigationScreen() {
                 AccountsScreen(navController = navController)
             }
             composable<Screen.TransactionsScreen> {
-                TransactionsScreen(navController = navController)
+                TransactionsScreen(navBackStackEntry = it)
             }
             composable<Screen.ProfileScreen> {
                 ProfileScreen(navController = navController)

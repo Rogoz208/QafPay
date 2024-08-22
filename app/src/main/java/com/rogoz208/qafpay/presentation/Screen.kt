@@ -14,7 +14,7 @@ sealed class Screen {
     data object AccountsScreen : Screen()
 
     @Serializable
-    data object TransactionsScreen: Screen()
+    data class TransactionsScreen(val accountId: String) : Screen()
 
     @Serializable
     data object ProfileScreen : Screen()

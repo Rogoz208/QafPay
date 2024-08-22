@@ -1,4 +1,4 @@
-package com.rogoz208.qafpay.data.remote.dto.accounts
+package com.rogoz208.qafpay.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import com.rogoz208.qafpay.domain.model.Currency
