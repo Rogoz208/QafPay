@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.dagger.hilt)
 }
@@ -20,6 +21,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "QAF_PAY_API_BASE_URL", "\"https://dev.qafpay.com/\"")
     }
 
     buildTypes {
@@ -40,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
@@ -55,6 +59,7 @@ dependencies {
 
     //  Core
     implementation(libs.androidx.core.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
     //  Compose
     implementation(libs.androidx.activity.compose)
