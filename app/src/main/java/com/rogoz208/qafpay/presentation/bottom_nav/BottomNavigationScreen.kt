@@ -94,10 +94,10 @@ fun MainBottomNavigationScreen() {
                 AccountsScreen(navController = navController)
             }
             composable<Screen.TransactionsScreen> {
-                TransactionsScreen(navBackStackEntry = it)
+                TransactionsScreen(navController = navController, navBackStackEntry = it)
             }
             composable<Screen.ProfileScreen> {
-                ProfileScreen(navController = navController)
+                ProfileScreen()
             }
         }
     }
